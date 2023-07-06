@@ -13,7 +13,7 @@ from .models import CustomUser
 
 from django.shortcuts import render, redirect
 from .models import CustomUser
-
+#sign in view
 def signin(request):
     if request.method == 'POST':
         username = request.POST['username']

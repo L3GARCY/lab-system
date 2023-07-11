@@ -1,24 +1,30 @@
-from django.shortcuts import render,redirect
-from django.http import HttpResponse    
-from .models import CustomUser
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .models import CustomUser,CustomItem
 from django.utils import timezone
 
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth import authenticate, login, logout
 from django.utils import timezone
+
+
 # Create your views here.
 def home(request):
     return render(request, "home.html")
+
+
 from django.shortcuts import render, redirect
 from .models import CustomUser
 
 from django.shortcuts import render, redirect
 from .models import CustomUser
-#sign in view
+
+
+# sign in view
 def signin(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        
+
         try:
             user = CustomUser.objects.get(username=username)
             if user.password == password:
@@ -38,6 +44,8 @@ def signin(request):
     return render(request, 'signin.html')
 
     return render(request, 'signin.html')
+
+
 def signup(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -59,7 +67,9 @@ def signup(request):
             return redirect('signin')
 
     return render(request, 'signup.html')
-#delete user
+
+
+# delete user
 def delete_user(request, user_id):
     # Retrieve the user by ID
     try:
@@ -69,6 +79,8 @@ def delete_user(request, user_id):
         pass
 
     return redirect('admin')
+
+
 def logout_view(request):
     # Store the logout time
     if request.user.is_authenticated:
@@ -79,10 +91,14 @@ def logout_view(request):
     # Perform logout
     logout(request)
 
-    return redirect('signin')   
+    return redirect('signin')
+
+def technician(request):
+    # Retrieve the choices for the dropdown fields from the CustomItem model
+
+    return render(request, 'technician.html')
+
 def student(request):
     return render(request, "student.html")
-def technician(request):
-    return render(request,'technician.html')
 def admin(request):
-    return render(request,'admin.html')
+    return render(request, 'admin.html')

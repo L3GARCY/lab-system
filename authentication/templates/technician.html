@@ -2,10 +2,14 @@
 <html>
 <head>
     <title>Technician Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .header {
@@ -15,12 +19,13 @@
             height: 50px;
             padding: 10px;
             background-color: #f0f0f0;
+            width: 100%;
         }
 
         .welcome-text {
-            margin-right: 10px;
             font-size: 16px;
             text-transform: capitalize;
+            margin-right: 10px;
         }
 
         .logout-link {
@@ -29,6 +34,11 @@
             text-decoration: underline;
             cursor: pointer;
         }
+
+        .add-item-button {
+            margin-top: auto;
+            margin-bottom: 30px;
+        }
     </style>
 </head>
 <body>
@@ -36,5 +46,59 @@
         <span class="welcome-text">Welcome, {{ username|capfirst }}</span>
         <a href="{% url 'logout' %}" class="logout-link">Logout</a>
     </div>
+
+    <button type="button" class="btn btn-primary add-item-button" data-toggle="modal" data-target="#addItemModal">
+        Add Item
+    </button>
+
+    <!-- Add Item Modal -->
+    <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="addItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addItemModalLabel">Add Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{% url 'add_item' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="itemType">Item Type:</label>
+                            <select class="form-control" id="itemType" name="item_name">
+                                {% for item in CustomItem.ITEMS %}
+                                    <option value="{{ item.0 }}">{{ item.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="serialNumber">Serial Number:</label>
+                            <input type="text" class="form-control" id="serialNumber" name="serial_number">
+                        </div>
+                        <div class="form-group">
+                            <label for="condition">Condition:</label>
+                            <select class="form-control" id="condition" name="condition">
+                                {% for cond in CustomItem.CONDITION %}
+                                    <option value="{{ cond.0 }}">{{ cond.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.add-item-button').click(function() {
+                $('#addItemModal').modal('show');
+            });
+        });
+    </script>
 </body>
 </html>

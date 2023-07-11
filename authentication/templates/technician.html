@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
     <title>Technician Page</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         .header {
@@ -18,58 +15,18 @@
             height: 50px;
             padding: 10px;
             background-color: #f0f0f0;
-            width: 100%;
         }
 
         .welcome-text {
+            margin-right: 10px;
             font-size: 16px;
             text-transform: capitalize;
-            margin-right: 10px;
         }
 
         .logout-link {
             font-size: 16px;
             color: blue;
             text-decoration: underline;
-            cursor: pointer;
-        }
-
-        .add-item-button {
-            margin-top: 30px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .add-item-form {
-            display: none;
-            margin-top: 30px;
-        }
-
-        .add-item-form label {
-            font-size: 16px;
-        }
-
-        .add-item-form input,
-        .add-item-form select {
-            margin-top: 5px;
-            padding: 5px;
-            font-size: 16px;
-            width: 200px;
-        }
-
-        .add-item-form button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
             cursor: pointer;
         }
     </style>
@@ -79,42 +36,5 @@
         <span class="welcome-text">Welcome, {{ username|capfirst }}</span>
         <a href="{% url 'logout' %}" class="logout-link">Logout</a>
     </div>
-
-    <button type="button" class="add-item-button" onclick="toggleAddItemForm()">Add Item</button>
-
-    <form class="add-item-form" method="POST" action="{% url 'add_item' %}">
-        {% csrf_token %}
-        <label for="itemType">Item Type:</label>
-        <select id="itemType" name="item_name">
-            {% for item in CustomItem.ITEMS %}
-                <option value="{{ item.0 }}">{{ item.1 }}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <label for="serialNumber">Serial Number:</label>
-        <input type="text" id="serialNumber" name="serial_number"><br>
-        <label for="condition">Condition:</label>
-        <select id="condition" name="condition">
-            {% for cond in CustomItem.CONDITION %}
-                <option value="{{ cond.0 }}">{{ cond.1 }}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <label for="lab">Lab:</label>
-        <select id="lab" name="lab">
-            {% for lab_item in CustomItem.LAB %}
-                <option value="{{ lab_item.0 }}">{{ lab_item.0 }}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <button type="submit">Submit</button>
-    </form>
-
-    <script>
-        function toggleAddItemForm() {
-            var addItemForm = document.querySelector('.add-item-form');
-            addItemForm.style.display = addItemForm.style.display === 'none' ? 'block' : 'none';
-        }
-    </script>
 </body>
 </html>

@@ -1,22 +1,13 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .models import CustomUser,CustomItem
+from django.contrib.auth import logout
 from django.utils import timezone
 
-from django.contrib.auth import authenticate, login, logout
-from django.utils import timezone
+from django.shortcuts import render, redirect
+from .models import CustomUser
 
 
 # Create your views here.
 def home(request):
     return render(request, "home.html")
-
-
-from django.shortcuts import render, redirect
-from .models import CustomUser
-
-from django.shortcuts import render, redirect
-from .models import CustomUser
 
 
 # sign in view
@@ -41,8 +32,6 @@ def signin(request):
         except CustomUser.DoesNotExist:
             error_message = 'Invalid username or password!'
             return render(request, 'signin.html', {'error_message': error_message})
-    return render(request, 'signin.html')
-
     return render(request, 'signin.html')
 
 
@@ -93,12 +82,16 @@ def logout_view(request):
 
     return redirect('signin')
 
+
 def technician(request):
     # Retrieve the choices for the dropdown fields from the CustomItem model
 
     return render(request, 'technician.html')
 
+
 def student(request):
     return render(request, "student.html")
+
+
 def admin(request):
     return render(request, 'admin.html')

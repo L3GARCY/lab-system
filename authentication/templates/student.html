@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Student Page</title>
+    <title>Technician Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height: 50px;
+            padding: 10px;
+            background-color: #f0f0f0;
+        }
+
+        .welcome-text {
+            margin-right: 10px;
+            font-size: 16px;
+            text-transform: capitalize;
+        }
+
+        .logout-link {
+            font-size: 16px;
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome, {{ username }}</h1>
-    <p>Your role is: {{ role }}</p>
-    <form action="{% url 'logout' %}" method="POST" style="display: inline;">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
+    <div class="header">
+        <span class="welcome-text">Welcome, {{ username|capfirst }}</span>
+        <a href="{% url 'logout' %}" class="logout-link">Logout</a>
+    </div>
 </body>
 </html>

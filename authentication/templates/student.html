@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Technician Page</title>
+    <title>Student Page</title>
     <style>
         body {
             margin: 0;
@@ -35,6 +35,13 @@
     <div class="header">
         <span class="welcome-text">Welcome, {{ username|capfirst }}</span>
         <a href="{% url 'logout' %}" class="logout-link">Logout</a>
+    
+    </div>
+    <div>
+        <a href="{% url 'request_item' %}">
+            <button class="btn btn-danger btn-sm">
+                Request Item
+            </button>
     </div>
 </body>
 </html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add item</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        .container {
+            margin-top: 100px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 50px;
+        }
+     .btn {
+            background-color: #13baf7;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            width: 70%;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+         margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add item</h1>
+        <form method="POST" action="{% url 'additem' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_item-name">Item name</label>
+                <select class="form-control" id="id_item-name" name="item_name" required>
+                    {% for item in item_choices %}
+                        <option value="{{ item.0 }}">{{ item.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_serial-number">Serial number</label>
+                <input type="text" class="form-control" id="id_serial-number" name="serial_number" required>
+            </div>
+            <div class="form-group">
+                <label for="id_condition">Condition</label>
+                <select class="form-control" id="id_condition" name="condition" required>
+                    {% for condition in condition_choices %}
+                        <option value="{{ condition.0 }}">{{ condition.1 }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="id_lab">Lab</label>
+                <select class="form-control" id="id_lab" name="lab" required>
+                   {% for lab in lab_choices %}
+                       <option value="{{ lab.0 }}">{{ lab.1 }}</option>
+                   {% endfor %}
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit">Add item</button>
+        </form>
+        <h6>Back to the main <a href="{% url 'technician' %}">page</a></h6>
+    </div>
+</body>
+</html>
